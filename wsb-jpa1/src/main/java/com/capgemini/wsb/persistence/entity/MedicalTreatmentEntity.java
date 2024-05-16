@@ -3,8 +3,6 @@ package com.capgemini.wsb.persistence.entity;
 import com.capgemini.wsb.persistence.enums.TreatmentType;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "MEDICAL_TREATMENT")
@@ -19,10 +17,11 @@ public class MedicalTreatmentEntity {
 
     @Enumerated(EnumType.STRING)
     private TreatmentType type;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "visit_id", nullable = false)
-    // This assumes there is a 'visit_id' column in your 'MEDICAL_TREATMENT' table
     private VisitEntity visit;
+
     // Getters and setters
 
     public Long getId() {
@@ -56,5 +55,4 @@ public class MedicalTreatmentEntity {
     public void setVisit(VisitEntity visit) {
         this.visit = visit;
     }
-
 }

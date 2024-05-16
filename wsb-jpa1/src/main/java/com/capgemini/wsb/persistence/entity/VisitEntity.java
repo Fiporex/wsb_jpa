@@ -42,7 +42,7 @@ public class VisitEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
+    // Relationship: Many-to-One, Bidirectional from child (Visit) to parent (Doctor)
     public DoctorEntity getDoctor() {
         return doctor;
     }

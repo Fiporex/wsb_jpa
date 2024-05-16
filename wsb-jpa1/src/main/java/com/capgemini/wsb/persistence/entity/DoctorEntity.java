@@ -52,7 +52,7 @@ public class DoctorEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private AddressEntity address;
-
+    // Relationship: One-to-One, Unidirectional from parent (Doctor) to child (Address)
     public AddressEntity getAddress() {
         return address;
     }
