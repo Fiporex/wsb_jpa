@@ -1,49 +1,93 @@
 package com.capgemini.wsb.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "VISIT")
 public class VisitEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String description;
+    private String description;
 
-	@Column(nullable = false)
-	private LocalDateTime time;
+    @Column(nullable = false)
+    private LocalDateTime time;
 
-	public Long getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private DoctorEntity doctor;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private PatientEntity patient;
 
-	public String getDescription() {
-		return description;
-	}
+    @OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicalTreatmentEntity> treatments;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public VisitEntity() {
+        treatments = new ArrayList<>();
+    }
 
-	public LocalDateTime getTime() {
-		return time;
-	}
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
 
-	public void setTime(LocalDateTime time) {
-		this.time = time;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public DoctorEntity getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorEntity doctor) {
+        this.doctor = doctor;
+    }
+
+    public PatientEntity getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientEntity patient) {
+        this.patient = patient;
+    }
+
+    public List<MedicalTreatmentEntity> getTreatments() {
+        return treatments;
+    }
+
+    public void setTreatments(List<MedicalTreatmentEntity> treatments) {
+        this.treatments = treatments;
+    }
+
+    public void addTreatment(MedicalTreatmentEntity treatment) {
+        if (this.treatments == null) {
+            this.treatments = new ArrayList<>();
+        }
+        this.treatments.add(treatment);
+        treatment.setVisit(this);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
 }

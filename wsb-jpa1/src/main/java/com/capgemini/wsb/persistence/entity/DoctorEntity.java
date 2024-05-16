@@ -2,95 +2,120 @@ package com.capgemini.wsb.persistence.entity;
 
 import com.capgemini.wsb.persistence.enums.Specialization;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "DOCTOR")
 public class DoctorEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(nullable = false)
-	private String firstName;
+    @Column(nullable = false)
+    private String firstName;
 
-	@Column(nullable = false)
-	private String lastName;
+    @Column(nullable = false)
+    private String lastName;
 
-	@Column(nullable = false)
-	private String telephoneNumber;
+    @Column(nullable = false)
+    private String telephoneNumber;
 
-	private String email;
+    private String email;
 
-	@Column(nullable = false)
-	private String doctorNumber;
+    @Column(nullable = false)
+    private String doctorNumber;
 
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private Specialization specialization;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Specialization specialization;
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<VisitEntity> visits = new ArrayList<>();
 
-	public Long getId() {
-		return id;
-	}
+    public List<VisitEntity> getVisits() {
+        return visits;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setVisits(List<VisitEntity> visits) {
+        this.visits = visits;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    // Metoda pomocnicza do dodawania wizyt do lekarza
+    public void addVisit(VisitEntity visit) {
+        visits.add(visit);
+        visit.setDoctor(this);
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
-	public String getLastName() {
-		return lastName;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private AddressEntity address;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public AddressEntity getAddress() {
+        return address;
+    }
 
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
+    public void setAddress(AddressEntity address) {
+        this.address = address;
+    }
 
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getDoctorNumber() {
-		return doctorNumber;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setDoctorNumber(String doctorNumber) {
-		this.doctorNumber = doctorNumber;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public Specialization getSpecialization() {
-		return specialization;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setSpecialization(Specialization specialization) {
-		this.specialization = specialization;
-	}
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDoctorNumber() {
+        return doctorNumber;
+    }
+
+    public void setDoctorNumber(String doctorNumber) {
+        this.doctorNumber = doctorNumber;
+    }
+
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
 
 }

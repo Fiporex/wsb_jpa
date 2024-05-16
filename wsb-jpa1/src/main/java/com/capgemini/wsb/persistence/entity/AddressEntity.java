@@ -6,6 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * AddressEntity represents the address details in the system.
+ * This entity is used by both PatientEntity and DoctorEntity
+ * in a one-to-one relationship.
+ */
 @Entity
 @Table(name = "ADDRESS")
 public class AddressEntity {
