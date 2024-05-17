@@ -1,4 +1,4 @@
-/*-- Inserting into ADDRESS table
+-- Inserting into ADDRESS table
 INSERT INTO address (id, address_line1, address_line2, city, postal_code)
 VALUES
     (1, '123 Main St', 'Apt 4B', 'New York', '10001'),
@@ -41,21 +41,8 @@ VALUES
     (4, 'Ultrasound Follow-up', 'USG', 4),
     (5, 'X-Ray Examination', 'RTG', 5);
 
- */-- Inserting into PATIENT table
 
-INSERT INTO patient (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id)
-VALUES
-    (1, 'Michael', 'Brown', '123456789', 'michael.brown@example.com', 'P001', '1980-05-20', 1),
-    (2, 'Sarah', 'Davis', '987654321', 'sarah.davis@example.com', 'P002', '1990-08-15', 2);
 
--- Inserting into DOCTOR table
-INSERT INTO doctor (id, first_name, last_name, telephone_number, email, doctor_number, specialization, address_id)
-VALUES
-    (1, 'John', 'Doe', '123456789', 'john.doe@example.com', 'D001', 'CARDIOLOGY', 1),
-    (2, 'Jane', 'Smith', '987654321', 'jane.smith@example.com', 'D002', 'DERMATOLOGY', 2);
 
--- Inserting into VISIT table
-INSERT INTO visit (id, description, time, doctor_id, patient_id)
-VALUES
-    (1, 'Routine Checkup', '2023-01-15T10:00:00', 1, 1),
-    (2, 'Dermatology Consultation', '2023-02-20T14:30:00', 2, 2);
+
+
