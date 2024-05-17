@@ -1,41 +1,42 @@
 package com.capgemini.wsb.mapper;
 
-import com.capgemini.wsb.dto.PatientTO;
-import com.capgemini.wsb.persistence.entity.PatientEntity;
+import com.capgemini.wsb.dto.DoctorTO;
+import com.capgemini.wsb.persistence.entity.DoctorEntity;
 import org.springframework.stereotype.Component;
+import com.capgemini.wsb.persistence.enums.Specialization;
 
 @Component
-public class PatientMapper {
+public class DoctorMapper {
 
-    public PatientTO toTO(PatientEntity entity) {
+    public DoctorTO toTO(DoctorEntity entity) {
         if (entity == null) {
             return null;
         }
 
-        PatientTO to = new PatientTO();
+        DoctorTO to = new DoctorTO();
         to.setId(entity.getId());
         to.setFirstName(entity.getFirstName());
         to.setLastName(entity.getLastName());
         to.setTelephoneNumber(entity.getTelephoneNumber());
         to.setEmail(entity.getEmail());
-        to.setPatientNumber(entity.getPatientNumber());
-        to.setDateOfBirth(entity.getDateOfBirth());
+        to.setDoctorNumber(entity.getDoctorNumber());
+        to.setSpecialization(entity.getSpecialization().toString());
         return to;
     }
 
-    public PatientEntity toEntity(PatientTO to) {
+    public DoctorEntity toEntity(DoctorTO to) {
         if (to == null) {
             return null;
         }
 
-        PatientEntity entity = new PatientEntity();
+        DoctorEntity entity = new DoctorEntity();
         entity.setId(to.getId());
         entity.setFirstName(to.getFirstName());
         entity.setLastName(to.getLastName());
         entity.setTelephoneNumber(to.getTelephoneNumber());
         entity.setEmail(to.getEmail());
-        entity.setPatientNumber(to.getPatientNumber());
-        entity.setDateOfBirth(to.getDateOfBirth());
+        entity.setDoctorNumber(to.getDoctorNumber());
+        entity.setSpecialization(Specialization.valueOf(to.getSpecialization()));
         return entity;
     }
 }

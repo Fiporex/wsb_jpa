@@ -49,6 +49,5 @@ public class VisitTO {
     public void setPatient(PatientTO patient) {
         this.patient = patient;
     }
-// Getters and setters
-    // ...
+
 }

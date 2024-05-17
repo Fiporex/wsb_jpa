@@ -1,9 +1,14 @@
 package com.capgemini.wsb.service.impl;
 
+
 import com.capgemini.wsb.dto.PatientTO;
+import com.capgemini.wsb.dto.VisitTO;
 import com.capgemini.wsb.persistence.dao.PatientRepository;
+import com.capgemini.wsb.persistence.dao.VisitRepository;
 import com.capgemini.wsb.persistence.entity.PatientEntity;
 import com.capgemini.wsb.mapper.PatientMapper;
+import com.capgemini.wsb.mapper.VisitMapper;
+import com.capgemini.wsb.persistence.entity.VisitEntity;
 import com.capgemini.wsb.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +23,13 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
 
     @Autowired
+    private VisitRepository visitRepository;
+
+    @Autowired
     private PatientMapper patientMapper;
+
+    @Autowired
+    private VisitMapper visitMapper;
 
     @Override
     public List<PatientTO> getAllPatients() {
@@ -42,5 +53,12 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void deletePatient(Long id) {
         patientRepository.deleteById(id);
+    }
+    @Override
+    public List<VisitTO> getAllVisitsByPatientId(Long patientId) {
+        List<VisitEntity> visits = visitRepository.findAllByPatientId(patientId);
+        return visits.stream()
+                .map(visitMapper::toTO)
+                .collect(Collectors.toList());
     }
 }
